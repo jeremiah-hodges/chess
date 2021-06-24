@@ -1,12 +1,22 @@
+import java.util.ArrayList;
+
 public class Board {
 
     private Square[][] board;
     private boolean isBlack;
     private boolean isWhite;
     private boolean isOccupied;
-
+    private ArrayList<String> pieceNames;
 
     public Board() {
+
+        pieceNames = new ArrayList<String>();
+        pieceNames.add("Rook");
+        pieceNames.add("Knight");
+        pieceNames.add("Bishop");
+        pieceNames.add("Queen");
+        pieceNames.add("King");
+        pieceNames.add("Pawn");
 
         board = new Square[8][8];
         boolean alternate = false;
@@ -29,12 +39,19 @@ public class Board {
         for(int i=0; i<board.length; i++){
             for(int j=0; j<board[i].length; j++){
 
-                if(i == 1 || i ==6){
-                    board[i][j].takeIn("Pawn");
+                if((i == 0 || i ==7)  && j<=4){
+                    board[i][j].takeIn(pieceNames.get(j));
                     board[i][j].moveIn();
                 }
-                else
-                    board[i][j].takeIn("Pawn");
+                else if((i == 0 || i ==7 )&& j>4){
+                    board[i][j].takeIn(pieceNames.get((j-7)*-1));
+                    board[i][j].moveIn();
+                }
+                else if(i == 1 || i ==6){
+                    board[i][j].takeIn(pieceNames.get(5));
+                    board[i][j].moveIn();
+                }
+
             }
 
         }
